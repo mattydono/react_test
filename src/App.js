@@ -1,28 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Selector} from "./Selector";
+import {Table} from "./Table";
 
 class App extends Component {
+
+  state = {
+    subbedPairs: new Set([]),
+    selectedCurrencyPair: ''
+  };
+
+  componentDidMount() {
+
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+
+      const currencyPairs = ['GBPUSD', 'GBPAUD', 'USDJPY', 'AUDCAD', 'GBPEUR', 'EURUSD'];
+
+      return (
+        <div>
+          <Selector
+              currencyPairs={currencyPairs}
+              subbedPairs={this.state.subbedPairs}
+              // selectedCurrencyPair={this.selectedCurrencyPair}
+              currencyChange={this.handleCurrencyChange}
+          />
+          <Table
+              subberPairs={this.state.subbedPairs}
+          />
+        </div>
     );
   }
+
+  handleCurrencyChange = (currencyPair) => {
+    this.setState( () => {
+     selectedCurrencyPair: currencyPair
+    })
+  };
+
 }
 
 export default App;
